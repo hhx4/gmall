@@ -1,4 +1,4 @@
-package com.hhx4.gmall.gmallorder;
+package com.hhx4.gmall.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

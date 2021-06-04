@@ -1,4 +1,4 @@
-package com.hhx4.gmall.gmallmember;
+package com.hhx4.gmall.member;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

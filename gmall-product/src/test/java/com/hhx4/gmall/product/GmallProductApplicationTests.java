@@ -14,10 +14,18 @@ class GmallProductApplicationTests {
 	@Test
 	void contextLoads() {
 		BrandEntity brandEntity = new BrandEntity();
-		brandEntity.setDescript("哈哈1哈");
+		brandEntity.setDescript("描述1号");
 		brandEntity.setName("华为");
 		brandService.save(brandEntity);
 		System.out.println("保存成功");
+	}
+	@Test
+	void contextLoads2() {
+		BrandEntity brandEntity = new BrandEntity();
+		brandEntity.setBrandId(1L);
+		brandEntity.setDescript("修改");
+		brandService.updateById(brandEntity);
+		System.out.println("修改成功");
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.hhx4.gmall.gmallcoupon;
+package com.hhx4.gmall.coupon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
