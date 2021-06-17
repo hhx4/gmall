@@ -1,6 +1,7 @@
 package com.hhx4.gmall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -31,6 +32,16 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+        根据查询分类子信息以树状返回
+     */
+    @RequestMapping("/list/tree")
+//    @RequiresPermissions("product:category:list")
+    public R listByTree(@RequestParam Map<String, Object> params){
+        List<CategoryEntity> entities = categoryService.listWithTree();
+
+        return R.ok().put("data", entities);
+    }
     /**
      * 列表
      */
