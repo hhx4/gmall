@@ -17,7 +17,7 @@ spring:
           predicates:
             - Path=/api/product/**
           filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - RewritePath=/api/?(?<segment>.*),/$\{segment}
 
         - id: third_party_route
           uri: lb://gmall-third-party
@@ -44,8 +44,8 @@ spring:
           uri: lb://renren-fast
           predicates:
             - Path=/api/**
-          filters:  # 这段过滤器和验证码有关，api内容缓存了/renren-fast，还得注意/renren-fast也注册到nacos中
-            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /renren-fast/$\{segment}
 
 
 
