@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gmall-third-party
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: b9f74882-0465-4b9c-986c-80ef57d02274
+        file-extension: yaml
+        extension-configs:
+          - data-id: oss.yml
+            group: DEFAULT_GROUP
+            refresh: true
+    alicloud:
+      access-key: LTAI5t6n1ATb4jmL77sY88Dy
+      secret-key: BOvEVFSnyKNNZSWAQ5ZrYXvP0UYiW0
+      oss:
+        endpoint: oss-cn-beijing.aliyuncs.com
+server:
+  port: 30000

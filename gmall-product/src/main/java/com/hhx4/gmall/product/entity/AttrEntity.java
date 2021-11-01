@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+
 import lombok.Data;
 
 /**
@@ -18,7 +20,6 @@ import lombok.Data;
 @TableName("pms_attr")
 public class AttrEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 
 	 */

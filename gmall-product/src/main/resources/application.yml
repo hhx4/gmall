@@ -10,6 +10,7 @@ spring:
         server-addr: 127.0.0.1:8848
   application:
     name: gmall-product
+
 # MapperScan
 # sql映射文件位置
 mybatis-plus:
