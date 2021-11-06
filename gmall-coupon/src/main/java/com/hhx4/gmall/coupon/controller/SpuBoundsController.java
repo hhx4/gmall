@@ -4,12 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.hhx4.common.to.SkuReductionTo;
+import com.hhx4.gmall.coupon.service.SkuFullReductionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hhx4.gmall.coupon.entity.SpuBoundsEntity;
 import com.hhx4.gmall.coupon.service.SpuBoundsService;
@@ -31,6 +29,17 @@ public class SpuBoundsController {
     @Autowired
     private SpuBoundsService spuBoundsService;
 
+
+    @Autowired
+    private SkuFullReductionService skuFullReductionService;
+
+
+    @PostMapping("/saveinfo")
+    public R saveInfo(@RequestBody SkuReductionTo reductionTo){
+
+        skuFullReductionService.saveSkuReduction(reductionTo);
+        return R.ok();
+    }
     /**
      * 列表
      */
@@ -57,7 +66,7 @@ public class SpuBoundsController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
    // @RequiresPermissions("coupon:spubounds:save")
     public R save(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.save(spuBounds);
