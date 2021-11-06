@@ -5,7 +5,9 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.hhx4.common.vaild.AddGroup;
+import com.hhx4.common.vaild.UpdateStatusGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,17 +66,29 @@ public class BrandController {
    // @RequiresPermissions("product:brand:save")
     public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand){
 		brandService.save(brand);
+        return R.ok();
+    }
+
+
+    /**
+     * 修改
+     */
+    @Transactional
+    @RequestMapping("/update")
+    //@RequiresPermissions("product:brand:update")
+    public R update(@RequestBody BrandEntity brand){
+		brandService.updateDetail(brand);
 
         return R.ok();
     }
 
     /**
-     * 修改
+     * 修改状态
      */
-    @RequestMapping("/update")
+    @RequestMapping("/update/status")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+    public R updateStatus(@Validated(UpdateStatusGroup.class) @RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }

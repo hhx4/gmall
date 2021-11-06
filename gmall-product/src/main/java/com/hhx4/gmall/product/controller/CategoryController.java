@@ -6,6 +6,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,19 +75,20 @@ public class CategoryController {
         return R.ok();
     }
     /**
-     * 批量修改
+     * 修改
      */
-    @RequestMapping("/update/sort")
+    @Transactional
+    @RequestMapping("/update")
     //@RequiresPermissions("product:category:update")
     public R update(@RequestBody CategoryEntity category) {
-        categoryService.updateById(category);
+        categoryService.updateCascade(category);
 
         return R.ok();
     }
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @RequestMapping("/update/sort")
     //@RequiresPermissions("product:category:update")
     public R updateSort(@RequestBody CategoryEntity[] category) {
         categoryService.updateBatchById(Arrays.asList(category));
