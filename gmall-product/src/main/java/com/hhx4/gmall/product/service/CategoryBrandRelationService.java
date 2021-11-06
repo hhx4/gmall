@@ -3,7 +3,9 @@ package com.hhx4.gmall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hhx4.common.utils.PageUtils;
 import com.hhx4.gmall.product.entity.CategoryBrandRelationEntity;
+import com.hhx4.gmall.product.vo.BrandVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,5 +24,7 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     void updateBrand(Long brandId, String name);
 
     void updateCategory(Long catId, String name);
+
+    List<BrandVo> listBrandsByCatId(Long catId);
 }
 

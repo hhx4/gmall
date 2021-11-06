@@ -13,10 +13,14 @@ import com.hhx4.gmall.product.entity.CategoryEntity;
 import com.hhx4.gmall.product.service.BrandService;
 import com.hhx4.gmall.product.service.CategoryBrandRelationService;
 import com.hhx4.gmall.product.service.CategoryService;
+import com.hhx4.gmall.product.vo.BrandVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service("categoryBrandRelationService")
@@ -60,6 +64,20 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void updateCategory(Long catId, String name) {
         this.baseMapper.updateCategory(catId,name);
+    }
+
+    @Override
+    public List<BrandVo> listBrandsByCatId(Long catId) {
+        List<CategoryBrandRelationEntity> relationEntityList = this.baseMapper.selectList(new QueryWrapper<CategoryBrandRelationEntity>()
+                .eq("catelog_id", catId));
+
+        List<BrandVo> collect = relationEntityList.stream().map((item) -> {
+            BrandVo brandVo = new BrandVo();
+            brandVo.setBrandId(item.getBrandId());
+            brandVo.setBrandName(item.getBrandName());
+            return brandVo;
+        }).collect(Collectors.toList());
+        return collect;
     }
 
 

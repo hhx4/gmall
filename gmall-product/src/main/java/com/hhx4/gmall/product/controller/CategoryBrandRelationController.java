@@ -6,6 +6,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hhx4.gmall.product.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,17 @@ public class CategoryBrandRelationController {
 
         return R.ok().put("page", page);
     }
+    /**
+     * 品牌列表
+     */
+    @RequestMapping("/brands/list")
+//    @RequiresPermissions("product:categorybrandrelation:list")
+    public R catelogBrandslist(@RequestParam(value = "catId",required = true)Long catId){
+        //从service中查到品牌集合；再封装为Vo对象，返回前端
+        List<BrandVo> collect = categoryBrandRelationService.listBrandsByCatId(catId);
+        return R.ok().put("data", collect);
+    }
+
 
 
     /**

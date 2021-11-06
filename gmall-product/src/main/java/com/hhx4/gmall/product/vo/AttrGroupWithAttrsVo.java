@@ -1,9 +1,5 @@
 package com.hhx4.gmall.product.vo;
 
-/**
- * @created by wt at 2021-11-05 23:48
- **/
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.hhx4.gmall.product.entity.AttrEntity;
 import lombok.Data;
 
