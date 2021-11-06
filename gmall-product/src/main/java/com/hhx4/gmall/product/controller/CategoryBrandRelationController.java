@@ -3,6 +3,7 @@ package com.hhx4.gmall.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -59,6 +60,22 @@ public class CategoryBrandRelationController {
         //从service中查到品牌集合；再封装为Vo对象，返回前端
         List<BrandVo> collect = categoryBrandRelationService.listBrandsByCatId(catId);
         return R.ok().put("data", collect);
+    }
+    /**
+     * 品牌id查分类
+     */
+    @RequestMapping("/catelog/list")
+//    @RequiresPermissions("product:categorybrandrelation:list")
+    public R catelogCateloglist(@RequestParam(value = "brandId",required = true)Long brandId){
+        List<CategoryBrandRelationEntity> data = categoryBrandRelationService.list(
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id",brandId)
+        );
+        /**
+         * 未封装文档
+         * data.stream().map((item)-> new CateLogVo(item.getCatelogId(),item.getCatelogName())).collect(Collectors.toList());
+         */
+
+        return R.ok().put("data", data);
     }
 
 
