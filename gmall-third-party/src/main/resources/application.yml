@@ -12,8 +12,8 @@ spring:
             group: DEFAULT_GROUP
             refresh: true
     alicloud:
-      access-key: LTAI5t6n1ATb4jmL77sY88Dy
-      secret-key: BOvEVFSnyKNNZSWAQ5ZrYXvP0UYiW0
+      access-key: xxxxx
+      secret-key: xxxxx
       oss:
         endpoint: oss-cn-beijing.aliyuncs.com
 server:
