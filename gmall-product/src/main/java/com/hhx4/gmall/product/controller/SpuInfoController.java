@@ -31,7 +31,7 @@ public class SpuInfoController {
 
     @PostMapping("{spuId}/up")
     private R upSpu(@PathVariable("spuId") Long spuId){
-        //TODO 商品上架
+        spuInfoService.up(spuId);
         return R.ok();
     }
 

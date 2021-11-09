@@ -196,6 +196,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     }
 
     @Override
+    public void up(Long spuId) {
+        //上架商品、查库存、更新状态、
+
+    }
+
+    @Override
     public void saveBaseSpuInfo(SpuInfoEntity infoEntity) {
         this.baseMapper.insert(infoEntity);
     }
