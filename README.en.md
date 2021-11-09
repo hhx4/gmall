@@ -1,36 +1,7 @@
 # gmall
 
 #### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
-
-#### Software Architecture
-Software architecture description
-
+The e-mall system developed with Java language is a set of e-commerce projects, including the foreground mall system and background management system. It is implemented based on SpringCloud + SpringCloudAlibaba + MyBatis-Plus and deploys Docker container.The front desk mall system includes: user login, registration, commodity search, commodity details, shopping cart, order process, second kill activities and other modules.Background management system includes: system management, commodity system, preferential marketing, inventory system, order system, user system, content management and other seven modules.
 #### Installation
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
+[![UUvRAS.png](https://images.gitee.com/uploads/images/2020/0714/193425_4a1056c4_4914148.png)](https://imgchr.com/i/UUvRAS)
 #### Instructions
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
