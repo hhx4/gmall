@@ -225,6 +225,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         relationDao.deleteBatchRelation(entities);
     }
 
+    @Override
+    public List<Long> selectSearchAttrIds(List<Long> attrIds) {
+
+        return baseMapper.selectSearchIds(attrIds);
+
+    }
+
     /**
      * 获取当前分组没有关联的所有属性
      * @param params
