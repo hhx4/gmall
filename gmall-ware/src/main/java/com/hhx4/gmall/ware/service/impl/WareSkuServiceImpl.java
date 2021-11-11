@@ -92,12 +92,16 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Override
     public List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds) {
         //查询是否需要有库存信息；
-        List<WareSkuEntity> wareSkuEntities = this.baseMapper.selectBatchIds(skuIds);
-        return wareSkuEntities.stream().map((item) -> {
-            SkuHasStockVo skuHasStockVo = new SkuHasStockVo();
-            skuHasStockVo.setSkuId(item.getSkuId());
-            skuHasStockVo.setStock(item.getStock());
-            return skuHasStockVo;
+        return skuIds.stream().map(skuId -> {
+            SkuHasStockVo vo = new SkuHasStockVo();
+
+            //查询当前sku的总库存量
+            //SELECT SUM(stock-stock_locked) FROM `wms_ware_sku` WHERE sku_id=1
+            Long count = baseMapper.getSkuStock(skuId);
+
+            vo.setSkuId(skuId);
+            vo.setHasStock(count != null && count > 0);
+            return vo;
         }).collect(Collectors.toList());
     }
 

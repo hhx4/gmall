@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hhx4.common.utils.PageUtils;
 import com.hhx4.gmall.ware.entity.WareSkuEntity;
 import com.hhx4.gmall.ware.vo.SkuHasStockVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public interface WareSkuService extends IService<WareSkuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-    void addStock(Long skuId, Long wareId, Integer skuNum);
+    void addStock(@Param("skuId") Long skuId, @Param("wareId") Long wareId, @Param("skuNum") Integer skuNum);
 
     List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds);
 }

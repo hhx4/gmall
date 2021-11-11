@@ -1,8 +1,8 @@
 package com.hhx4.gmall.product.vo;
 
-import com.atguigu.gulimall.product.entity.SkuImagesEntity;
-import com.atguigu.gulimall.product.entity.SkuInfoEntity;
-import com.atguigu.gulimall.product.entity.SpuInfoDescEntity;
+import com.hhx4.gmall.product.entity.SkuImagesEntity;
+import com.hhx4.gmall.product.entity.SkuInfoEntity;
+import com.hhx4.gmall.product.entity.SpuInfoDescEntity;
 import lombok.Data;
 import lombok.ToString;
 
