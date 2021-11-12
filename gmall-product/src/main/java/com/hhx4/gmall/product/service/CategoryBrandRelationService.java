@@ -27,4 +27,3 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
 
     List<BrandVo> listBrandsByCatId(Long catId);
 }
-
