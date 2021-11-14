@@ -3,6 +3,7 @@ package com.hhx4.gmall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hhx4.common.utils.PageUtils;
 import com.hhx4.gmall.product.entity.CategoryEntity;
+import com.hhx4.gmall.product.vo.Catelog2Vo;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,6 +35,9 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     void updateCascade(CategoryEntity category);
 
-    List<CategoryEntity> getLevel1Catagories();
+
+    List<CategoryEntity> getLevel1Categorys();
+
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }
 
