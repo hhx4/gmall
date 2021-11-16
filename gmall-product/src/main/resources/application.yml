@@ -30,3 +30,4 @@ server:
 logging:
   level:
     com.hhx4.gmall: debug
+
