@@ -6,6 +6,8 @@ import com.hhx4.gmall.product.service.CategoryBrandRelationService;
 import com.hhx4.gmall.product.vo.Catelog2Vo;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -37,7 +39,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Autowired
     StringRedisTemplate redisTemplate;
-    
+
+    @Autowired
+    private RedissonClient redissonClient;
     @Autowired
     Redisson redisson;
 
@@ -263,15 +267,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         //1、锁的名字。 锁的粒度，越细越快。
         //锁的粒度：具体缓存的是某个数据，11-号商品；  product-11-lock product-12-lock   product-lock
-        RLock lock = redisson.getLock("CatalogJson-lock");
-        lock.lock();
+        RReadWriteLock readWriteLock = redissonClient.getReadWriteLock("catalogJson-lock");
+
+        RLock rLock = readWriteLock.readLock();
+
 
 
         Map<String, List<Catelog2Vo>> dataFromDb;
         try {
             dataFromDb = getDataFromDb();
         } finally {
-            lock.unlock();
+            rLock.unlock();
         }
 
         return dataFromDb;

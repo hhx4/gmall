@@ -16,7 +16,6 @@ public class MyRedissonConfig {
     /**
      * 所有对 Redisson 的使用都是通过 RedissonClient
      *
-     * @return
      * @throws IOException
      */
     @Bean(destroyMethod = "shutdown")
