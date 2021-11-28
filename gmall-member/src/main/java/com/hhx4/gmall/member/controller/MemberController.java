@@ -4,13 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.hhx4.common.vo.MemberRespVo;
 import com.hhx4.gmall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hhx4.gmall.member.entity.MemberEntity;
 import com.hhx4.gmall.member.service.MemberService;
@@ -34,6 +31,13 @@ public class MemberController {
 
     @Autowired
     CouponFeignService couponFeignService;
+
+    @ResponseBody
+    @RequestMapping("/registe")
+    public R regist(MemberRespVo vo){
+
+        return R.ok();
+    }
 
     @RequestMapping("/coupons")
     public R test() {

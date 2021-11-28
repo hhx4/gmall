@@ -117,7 +117,7 @@ public class LoginController {
 
 //            session.set
             //校验出错，转发到注册页
-            return "redirect:http://auth.gulimall.com/reg.html";
+            return "redirect:http://auth.gmall.com/reg.html";
         }
 
 
@@ -134,26 +134,26 @@ public class LoginController {
                 if(r.getCode() == 0){
                     //成功
 
-                    return "redirect:http://auth.gulimall.com/login.html";
+                    return "redirect:http://auth.gmall.com/login.html";
                 }else{
                     Map<String, String> errors = new HashMap<>();
                     errors.put("msg",r.getData("msg",new TypeReference<String>(){}));
                     redirectAttributes.addFlashAttribute("errors",errors);
-                    return "redirect:http://auth.gulimall.com/reg.html";
+                    return "redirect:http://auth.gmall.com/reg.html";
                 }
 
             }else{
                 Map<String, String> errors =  new HashMap<>();
                 errors.put("code","验证码错误");
                 redirectAttributes.addFlashAttribute("errors",errors);
-                return "redirect:http://auth.gulimall.com/reg.html";
+                return "redirect:http://auth.gmall.com/reg.html";
             }
         }else {
             Map<String, String> errors =  new HashMap<>();
             errors.put("code","验证码错误");
             redirectAttributes.addFlashAttribute("errors",errors);
             //校验出错，转发到注册页
-            return "redirect:http://auth.gulimall.com/reg.html";
+            return "redirect:http://auth.gmall.com/reg.html";
         }
     }
 
@@ -164,7 +164,7 @@ public class LoginController {
             //没登录
             return "login";
         }else {
-            return "redirect:http://gulimall.com";
+            return "redirect:http://gmall.com";
         }
 
 
@@ -184,12 +184,12 @@ public class LoginController {
             });
             ////成功放到session中
             session.setAttribute(AuthServerConstant.LOGIN_USER,data);
-            return "redirect:http://gulimall.com";
+            return "redirect:http://gmall.com";
         }else {
             Map<String,String > errors = new HashMap<>();
             errors.put("msg",login.getData("msg",new TypeReference<String>(){}));
             redirectAttributes.addFlashAttribute("errors",errors);
-            return "redirect:http://auth.gulimall.com/login.html";
+            return "redirect:http://auth.gmall.com/login.html";
         }
     }
 }
