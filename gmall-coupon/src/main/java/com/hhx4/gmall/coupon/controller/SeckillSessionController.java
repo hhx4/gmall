@@ -2,14 +2,11 @@ package com.hhx4.gmall.coupon.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.List;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hhx4.gmall.coupon.entity.SeckillSessionEntity;
 import com.hhx4.gmall.coupon.service.SeckillSessionService;
@@ -30,6 +27,15 @@ import com.hhx4.common.utils.R;
 public class SeckillSessionController {
     @Autowired
     private SeckillSessionService seckillSessionService;
+
+
+    @GetMapping("/getLatest3DaySession")
+    public R getLatest3DaySession(){
+        List<SeckillSessionEntity> list = seckillSessionService.getLatest3DaySession();
+        return R.ok().setData(list);
+    }
+
+
 
     /**
      * 列表
