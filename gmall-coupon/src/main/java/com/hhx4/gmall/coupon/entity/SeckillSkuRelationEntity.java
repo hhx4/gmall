@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.math.BigDecimal;
 import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -44,11 +44,11 @@ public class SeckillSkuRelationEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private BigDecimal seckillCount;
+	private Integer seckillCount;
 	/**
 	 * ÿ
 	 */
-	private BigDecimal seckillLimit;
+	private Integer seckillLimit;
 	/**
 	 * 
 	 */

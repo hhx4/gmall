@@ -11,29 +11,14 @@ import java.math.BigDecimal;
 @Data
 public class SeckillSkuRedisTo {
     private Long promotionId;
-    /**
-     *
-     */
     private Long promotionSessionId;
-    /**
-     *
-     */
     private Long skuId;
-    /**
-     *
-     */
     private BigDecimal seckillPrice;
-    /**
-     *
-     */
     private BigDecimal seckillCount;
-    /**
-     * ÿ
-     */
     private BigDecimal seckillLimit;
-    /**
-     *
-     */
     private Integer seckillSort;
+    private String randomCode;
     private SkuInfoVo skuInfo;
+    private Long startTime;
+    private Long endTime;
 }

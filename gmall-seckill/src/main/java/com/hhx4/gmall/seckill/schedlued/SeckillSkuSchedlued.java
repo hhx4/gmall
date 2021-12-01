@@ -19,8 +19,10 @@ public class SeckillSkuSchedlued {
     @Autowired
     private SeckillService seckillService;
 
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void uploadLatest3Day() {
+        //TODO 幂等性处理
+        log.info("商品上架完成");
         seckillService.uploadSkuLatest3Day();
     }
 }
