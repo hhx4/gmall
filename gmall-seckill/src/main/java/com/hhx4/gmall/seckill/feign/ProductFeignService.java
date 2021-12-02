@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("gmall-product")
 public interface ProductFeignService {
 
-    @RequestMapping("/product/skuInfo/info/{skuId}")
+    @RequestMapping("/product/skuinfo/info/{skuId}")
     R getSkuinfo(@PathVariable("skuId") Long skuId);
 }
