@@ -9,6 +9,7 @@ import com.hhx4.gmall.seckill.service.SeckillService;
 import com.hhx4.gmall.seckill.to.SeckillSkuRedisTo;
 import com.hhx4.gmall.seckill.vo.SeckillSessionsWithSkus;
 import com.hhx4.gmall.seckill.vo.SkuInfoVo;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  * 商品秒杀实现
  **/
 
+@Slf4j
 @Service("SeckillService")
 public class SeckillServiceImpl implements SeckillService {
 
@@ -44,6 +46,7 @@ public class SeckillServiceImpl implements SeckillService {
     private final String SESSIONS_CACHE_PREFIX = "seckill:sessions:";
     private final String SECKILLS_CACHE_PREFIX = "seckill:skus:";
     private final String SKU_STOCK_SEMAPHORE = "seckill:stock:";
+
 
 
     @Override
@@ -107,12 +110,34 @@ public class SeckillServiceImpl implements SeckillService {
     public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
         //获取当前时间
         long time = new Date().getTime();
-        //获取当前秒杀活动
-        Set<String> keys = redisTemplate.keys(SESSIONS_CACHE_PREFIX + "*");
-        if (keys != null) {
-            //todo 处理获取到的活动信息keys
+
+        try{//Map.Entry entry = SphU.entry("seckillSkus")
+            Set<String> keys = redisTemplate.keys(SESSIONS_CACHE_PREFIX + "*");
+            for (String key : keys) {
+                //seckill:sessions:1582250400000_1582254000000
+                String replace = key.replace(SESSIONS_CACHE_PREFIX, "");
+                String[] s = replace.split("_");
+                Long start = Long.parseLong(s[0]);
+                Long end = Long.parseLong(s[1]);
+                if (time >= start && time <= end) {
+                    //2、获取这个秒杀场次需要的所有商品信息
+                    List<String> range = redisTemplate.opsForList().range(key, -100, 100);
+                    BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILLS_CACHE_PREFIX);
+                    List<String> list = hashOps.multiGet(range);
+                    if (list != null) {
+                        List<SeckillSkuRedisTo> collect = list.stream().map(item -> {
+                            SeckillSkuRedisTo redis = JSON.parseObject((String) item, SeckillSkuRedisTo.class);
+//                        redis.setRandomCode(null); 当前秒杀开始就需要随机码
+                            return redis;
+                        }).collect(Collectors.toList());
+                        return collect;
+                    }
+                    break;
+                }
+            }
+        }catch (Exception e){
+            log.error("资源被限流,{}",e.getMessage());
         }
-        //获取当前秒杀商品信息
 
         return null;
     }
