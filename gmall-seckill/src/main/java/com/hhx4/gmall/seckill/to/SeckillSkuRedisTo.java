@@ -14,8 +14,8 @@ public class SeckillSkuRedisTo {
     private Long promotionSessionId;
     private Long skuId;
     private BigDecimal seckillPrice;
-    private BigDecimal seckillCount;
-    private BigDecimal seckillLimit;
+    private Integer seckillCount;
+    private Integer seckillLimit;
     private Integer seckillSort;
     private String randomCode;
     private SkuInfoVo skuInfo;
