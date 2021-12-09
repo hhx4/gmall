@@ -192,17 +192,19 @@ public class SeckillServiceImpl implements SeckillService {
                         try {
                             boolean b = semaphore.tryAcquire(num, 100, TimeUnit.MILLISECONDS);
                             //秒杀成功，准备快速下单发送MQ消息
-                            String timeId = IdWorker.getTimeId();
-                            SeckillOrderTo to = new SeckillOrderTo();
-                            to.setOrderSn(timeId);
-                            to.setMemberId(memberRespVo.getId());
-                            to.setNum(num);
-                            to.setPromotionSessionId(redis.getPromotionSessionId());
-                            to.setSkuId(redis.getSkuId());
-                            to.setSeckillPrice(redis.getSeckillPrice());
-                            rabbitTemplate.convertAndSend("order-event-exchange","order.seckill.order",to);
-                            return timeId;
-
+                            if(b){
+                                String timeId = IdWorker.getTimeId();
+                                SeckillOrderTo to = new SeckillOrderTo();
+                                to.setOrderSn(timeId);
+                                to.setMemberId(memberRespVo.getId());
+                                to.setNum(num);
+                                to.setPromotionSessionId(redis.getPromotionSessionId());
+                                to.setSkuId(redis.getSkuId());
+                                to.setSeckillPrice(redis.getSeckillPrice());
+                                rabbitTemplate.convertAndSend("order-event-exchange","order.seckill.order",to);
+                                return timeId;
+                            }
+                            return null;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
