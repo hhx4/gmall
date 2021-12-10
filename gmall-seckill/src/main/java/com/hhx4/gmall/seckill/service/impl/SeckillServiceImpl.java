@@ -182,7 +182,7 @@ public class SeckillServiceImpl implements SeckillService {
             if (randomCode.equals(key) && killId.equals(skuId)) {
                 //3、购物数量是否合理
                 if(num <= redis.getSeckillLimit()){
-                    //4、验证这个人是否已经买过了，秒杀成功，去redis中占一个为
+                    //4、验证这个人是否已经买过了，秒杀成功，去redis中占一个
                     String redisKey = memberRespVo.getId()+"_"+skuId;
                     Boolean aBoolean = redisTemplate.opsForValue().setIfAbsent(redisKey, num.toString(), ttl, TimeUnit.MILLISECONDS);
                     //占位是否成功，是否买过
