@@ -16,5 +16,4 @@ public class SeckillOrderTo {
     private Integer num; //购买数量
     private Long memberId;//会员id；
 
-
 }

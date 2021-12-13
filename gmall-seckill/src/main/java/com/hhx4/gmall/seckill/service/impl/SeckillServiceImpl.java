@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -53,7 +54,7 @@ public class SeckillServiceImpl implements SeckillService {
     RabbitTemplate rabbitTemplate;
 
     private final String SESSIONS_CACHE_PREFIX = "seckill:sessions:";
-    private final String SECKILLS_CACHE_PREFIX = "seckill:skus:";
+    private final String SECKILL_CACHE_PREFIX = "seckill:skus:";
     private final String SKU_STOCK_SEMAPHORE = "seckill:stock:";
 
 
@@ -76,7 +77,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     private void saveSkuInfo(List<SeckillSessionsWithSkus> data) {
         data.forEach(session->{
-            BoundHashOperations<String,Object,Object> ops = redisTemplate.boundHashOps(SECKILLS_CACHE_PREFIX);
+            BoundHashOperations<String,Object,Object> ops = redisTemplate.boundHashOps(SECKILL_CACHE_PREFIX);
             session.getRelationSkus().forEach(item->{
                 //存储秒杀随机码信息
                 String code = UUID.randomUUID().toString().replace("-","");
@@ -132,7 +133,7 @@ public class SeckillServiceImpl implements SeckillService {
                 if (time >= start && time <= end) {
                     //2、获取这个秒杀场次需要的所有商品信息
                     List<String> range = redisTemplate.opsForList().range(key, -100, 100);
-                    BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILLS_CACHE_PREFIX);
+                    BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CACHE_PREFIX);
                     List<String> list = hashOps.multiGet(range);
                     if (list != null) {
                         List<SeckillSkuRedisTo> collect = list.stream().map(item -> {
@@ -151,9 +152,40 @@ public class SeckillServiceImpl implements SeckillService {
 
         return null;
     }
-
+    
     @Override
     public SeckillSkuRedisTo getSkuSeckillInfo(Long skuId) {
+
+        //1、找到所有需要参与秒杀的商品的key
+        BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CACHE_PREFIX);
+
+
+        Set<String> keys = hashOps.keys();
+        if (keys != null && keys.size() > 0) {
+            String regx = "\\d_" + skuId;
+            for (String key : keys) {
+                //6_4
+                if (Pattern.matches(regx, key)) {
+                    String json = hashOps.get(key);
+                    SeckillSkuRedisTo skuRedisTo = JSON.parseObject(json, SeckillSkuRedisTo.class);
+                    //TODO 加入非空判断
+                    if (skuRedisTo == null) return null;
+                    //随机码
+                    long current = new Date().getTime();
+                    if (current >= skuRedisTo.getStartTime() && current <= skuRedisTo.getEndTime()) {
+                        //TODO
+                    } else {
+                        //TODO 当前商品已经过了秒杀时间要直接删除
+                        hashOps.delete(key);
+                        skuRedisTo.setRandomCode(null);
+                    }
+                    return skuRedisTo;
+                }
+                ;
+            }
+        }
+
+
         return null;
     }
 
@@ -163,7 +195,7 @@ public class SeckillServiceImpl implements SeckillService {
         MemberRespVo memberRespVo = LoginUserInterceptor.LoginUser.get();
 
         //1、获取商品详细信息
-        BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILLS_CACHE_PREFIX);
+        BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CACHE_PREFIX);
         String json = hashOps.get(killId);
         if(StringUtils.isEmpty(json)){
             return null;
