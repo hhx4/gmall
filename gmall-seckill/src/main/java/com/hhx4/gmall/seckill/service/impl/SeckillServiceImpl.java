@@ -233,7 +233,7 @@ public class SeckillServiceImpl implements SeckillService {
                                 to.setPromotionSessionId(redis.getPromotionSessionId());
                                 to.setSkuId(redis.getSkuId());
                                 to.setSeckillPrice(redis.getSeckillPrice());
-                                rabbitTemplate.convertAndSend("order-event-exchange","order.seckill.order",to);
+                               // rabbitTemplate.convertAndSend("order-event-exchange","order.seckill.order",to);
                                 return timeId;
                             }
                             return null;

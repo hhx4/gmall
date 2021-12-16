@@ -33,7 +33,7 @@ public class SeckillController {
         return R.ok().setData(to);
     }
 
-    @GetMapping("kill")
+    @GetMapping("/kill")
     public R seckill(@RequestParam("killId")String killId,
                      @RequestParam("key")String key,
                      @RequestParam("num") Integer num){
